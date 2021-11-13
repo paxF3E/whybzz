@@ -3,14 +3,15 @@ from discord.ext import commands
 from discord.ext.commands import cog
 from discord.flags import Intents
 import whybzzv2
+import os
 
 cogs = [whybzzv2]
-
+token = os.environ["BOT_TOKEN"]
 client = commands.Bot(command_prefix='?' , intents = discord.Intents.all())
 
 for i in range(len(cogs)):
     cogs[i].setup(client)
 
-client.run("OTA2MTgzODg3OTM4NTI3Mjk0.YYU7gg.2iIx7_Ux9NuK-zaBJbwLyyvgMzg")
+client.run(token)
 
 # https://www.youtube.com/watch?v=iv7lcUkFVSc #
