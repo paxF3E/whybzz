@@ -1,4 +1,4 @@
-git+https://github.com/paxF3E/whybzz/blob/main/main.py@rewrite
+git+https://github.com/paxF3E/whybzz/@rewrite
 discord
 os
 whybzzv2
