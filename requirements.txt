@@ -1,0 +1,5 @@
+python-3.8.7
+git+https://github.com/paxF3E/Whybzz/main.py
+discord
+os
+whybzzv2
