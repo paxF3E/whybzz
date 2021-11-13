@@ -1,4 +1,4 @@
-git+https://github.com/paxF3E/whybzz/@rewrite
+git+https://github.com/paxF3E/whybzz/
 discord
 os
 whybzzv2
