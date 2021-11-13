@@ -1,4 +1,4 @@
-git+https://github.com/paxF3E/Whybzz/main.py@rewrite
+git+https://github.com/paxF3E/whybzz/main.py@rewrite
 discord
 os
 whybzzv2
