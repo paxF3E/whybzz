@@ -21,6 +21,10 @@ class whybzzv2(commands.Cog):
         await ctx.voice_client.disconnect()
 
     @commands.command()
+    async def dc(self,ctx):
+        await ctx.voice_client.disconnect()
+        
+    @commands.command()
     async def play(self,ctx,url):
         try:
             ctx.voice_client.stop()
@@ -28,25 +32,28 @@ class whybzzv2(commands.Cog):
             pass
         FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5' , 'options': '-vn'}
         YDL_OPTIONS = {'format':"bestaudio"}
-        vc = ctx.voice_client
 
         with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(url, download=False)
             url2 = info['formats'][0]['url']
-            vcc = await voice_channel.connect()
-            vcc.play(discord.FFmpegPCMAudio(executable="/app/vendor/ffmpeg/ffmpeg", source=url2))
-            #source = await discord.FFmpegOpusAudio.from_probe(url2 , **FFMPEG_OPTIONS)      #creates stream of the audio
-            #vc.play(source)
+            vcc = ctx.author.voice.channel
+            try:
+                await vcc.connect()
+            except:
+                pass
+            
+            source = discord.FFmpegPCMAudio(executable="H:\/FFmpeg\/bin\/ffmpeg.exe", source=url2) #streams audio
+            ctx.voice_client.play(source)
             
     @commands.command()
     async def pause(self, ctx):
-        await ctx.voice_client.pause()
-        await ctx.send("Paused.")
+        ctx.voice_client.pause()
+        await ctx.send("Player paused")
 
     @commands.command()
     async def resume(self, ctx):
-        await ctx.voice_client.resume()
-        await ctx.send("Resumed.")
-
+        ctx.voice_client.resume()
+        await ctx.send("Player resumed")
+        
 def setup(client):
     client.add_cog(whybzzv2(client))
