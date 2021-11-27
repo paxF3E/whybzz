@@ -1,0 +1,5 @@
+[project]
+name = "whybzz"
+version = "0.1.0"
+python = "3.8.7"
+repository = "https://github.com/paxF3E/whybzz"
