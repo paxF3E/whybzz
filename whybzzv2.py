@@ -42,7 +42,7 @@ class whybzzv2(commands.Cog):
             except:
                 pass
             
-            source = discord.FFmpegOpusAudio.from_probe(url2 , **FFMPEG_OPTIONS)#discord.FFmpegPCMAudio(executable="/app/vendor/ffmpeg/ffmpeg", source=url2) #streams audio
+            source = await discord.FFmpegOpusAudio.from_probe(url2 , **FFMPEG_OPTIONS)#discord.FFmpegPCMAudio(executable="/app/vendor/ffmpeg/ffmpeg", source=url2) #streams audio
             ctx.voice_client.play(source)
             
     @commands.command()
