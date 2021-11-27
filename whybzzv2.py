@@ -42,7 +42,7 @@ class whybzzv2(commands.Cog):
             except:
                 pass
             
-            source = discord.FFmpegPCMAudio(executable="H:\/FFmpeg\/bin\/ffmpeg.exe", source=url2) #streams audio
+            source = discord.FFmpegPCMAudio(executable="/app/vendor/ffmpeg/ffmpeg", source=url2) #streams audio
             ctx.voice_client.play(source)
             
     @commands.command()
