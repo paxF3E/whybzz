@@ -33,8 +33,10 @@ class whybzzv2(commands.Cog):
         with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
             info = ydl.extract_info(url, download=False)
             url2 = info['formats'][0]['url']
-            source = await discord.FFmpegOpusAudio.from_probe(url2 , **FFMPEG_OPTIONS)      #creates stream of the audio
-            vc.play(source)
+            vcc = await channel.connect()
+            vcc.play(discord.FFmpegPCMAudio(executable="/app/vendor/ffmpeg/ffmpeg", source="mp3.mp3"))
+            #source = await discord.FFmpegOpusAudio.from_probe(url2 , **FFMPEG_OPTIONS)      #creates stream of the audio
+            #vc.play(source)
             
     @commands.command()
     async def pause(self, ctx):
