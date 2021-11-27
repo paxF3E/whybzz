@@ -1,5 +1,6 @@
 git+https://github.com/paxF3E/whybzz/
 discord==1.7.3
 discord.py==1.7.3
+pynacl==1.4.0
 gunicorn==20.1.0
 youtube_dl
