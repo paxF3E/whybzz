@@ -13,5 +13,3 @@ for i in range(len(cogs)):
     cogs[i].setup(client)
 
 client.run(token)
-
-# https://www.youtube.com/watch?v=iv7lcUkFVSc #
