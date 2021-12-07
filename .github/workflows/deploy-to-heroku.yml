@@ -1,40 +1,38 @@
-# This is a basic workflow to help you get started with Actions
+# .github/workflows/custom-deploy.yml
+name: deploy-to-heroku
 
-name: Deploying 
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the hosted branch
   push:
-    branches: 
+    branches:
       - hosted
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  custom-deploy:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
-
-      # Logs in to Heroku CLI with a OAuth Token
-      - name: Login to Heroku Container
+      - name: Check out repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          
+      - name: Heroku login credentials
+        run: |
+          cat > ~/.netrc <<EOF
+            machine api.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+            machine git.heroku.com
+              login $HEROKU_EMAIL
+              password $HEROKU_API_KEY
+          EOF
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:login
-
-      - name: Build and push
+          HEROKU_EMAIL: ${{ secrets.HEROKU_EMAIL }}
+          
+      - name: Add Heroku remote
+        run: heroku git:remote --app $HEROKU_APP_NAME
         env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:push -a whybzz web 
-        
-      - name: Release
-        env:
-          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        run: heroku container:release -a whybzz web 
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+          
+      - name: Push to Heroku
+        run: git push heroku master
